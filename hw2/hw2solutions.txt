@@ -36,6 +36,8 @@ Question 3: Solutions directly in code listing
 
 Question 4:
 
+Like the code for question 2, question 4 code ran on Intel Core i5 with dual 2.4 GHz cores. The machine has 8GB of RAM with 3 MB of L3 cache and 256k L2 cache. With max turbo frequency, the peak flop rate is about 23.5 Gflops/s.
+
 Below, I give the performance with one and two threads respectfully. The performance does not improve much with three or more threads. I do not use compiler optimization as the parallel code does not seem to impact the timings for optimized compiled code. 
 
 The code either takes no arguments or three arguments: dimension, number of iterations, and number of threads respectively.
