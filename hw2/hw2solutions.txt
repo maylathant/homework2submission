@@ -1,0 +1,50 @@
+#########################################################################
+########### Anthony Maylath Solutions for HPC HW2 #######################
+#########################################################################
+
+#Note that I use g++/gcc-8 to compile openmp code.
+
+#########################################################################
+
+Question 1: Solutions directly in code
+
+#########################################################################
+
+Question 2: 
+
+The code for question 2 ran on Intel Core i5 with dual 2.4 GHz cores. The machine has 8GB of RAM with 3 MB of L3 cache and 256k L2 cache. With max turbo frequency, the peak flop rate is about 23.5 Gflops/s.
+
+I use -03 optimization unless otherwise stated.
+
+MMult1Arr() re-arranges the loop ordering from MMult0(). I find the original ordering of MMult to perform the best by a large margin. This occurs as c and a can be accessed as streams if we increment i on each iteration. Since c and a comprise most of the reads, their access tends to drive performance.
+
+Function MMini() takes the same arguments as MMult0() with the addition of long ar, long br, and long cc which represent the starting row in A, starting row and matrix B, starting column in output C for each block respectively.
+
+If the block size is too small then there are not enough elements in the cache to achieve a meaningful speedup. Meanwhile if the block size is too large, many of the elements will not be in the cache. The best performance occurs when the whole block fits in the cache. On my machine, a block size of 64 performed well with Gflops/s around 50 and bandwidth of around 20 GB/s. Block sizes smaller or larger saw lower performance. Small block sizes did particularly poorly.
+
+Block Size	Average Gflop/s	Average GB/s160	32.95314291	13.18125709100	43.96350125	17.585400564	50.45920513	20.1836819632	46.78380276	18.713521116	33.18136758	13.272547068	19.91914288	7.967657212
+
+If I parallelize MMult1() with #pragma amp for over the inner two loops, I get a speed up of about 30 Gflops/s and an increase in bandwidth of about 12 GB/s. Overall, the speed is about 80.42 Gflops/s which is more than triple peak performance. I ran my code with 4 amp threads.
+
+Comparing MMult1() with MMult0() (both with openmp), I start to notice better performance with blocking around Dimension > 1000. Here, block size is kept constant at 64.
+
+#########################################################################
+
+Question 3: Solutions directly in code listing
+
+#########################################################################
+
+Question 4:
+
+Below, I give the performance with one and two threads respectfully. The performance does not improve much with three or more threads. I do not use compiler optimization as the parallel code does not seem to impact the timings for optimized compiled code. 
+
+The code either takes no arguments or three arguments: dimension, number of iterations, and number of threads respectively.
+
+The speedup is roughly a factor of two for both Jacobi and GS. This makes sense as my machine has two cores.
+
+
+Jacobi	Single ThreadRun Time	Dimension0.000098	40.000124	80.000231	160.0008		320.0033		640.008567	1000.0567		2500.23198		5000.419943	7500.894945	10005.398277	250017.412307	500071.754189	10000
+
+Jacobi	Two ThreadRun Time	Dimension0.002991	40.002735	80.002481	160.0029		320.004376	640.007481	1000.02756		2500.122592	5000.244837	7500.466912	10002.792638	25008.930065	500035.80829	10000
+
+GS	Single ThreadRun Time	Dimension0.000183	40.000181	80.000295	160.000785	320.004029	640.007362	1000.05055		2500.195827	5000.435251	7500.744605	10004.691944	250018.001431	500072.644649	10000GS	Two ThreadRun Time	Dimension0.004438	40.004482	80.004609	160.005268	320.006104	640.009814	1000.032606	2500.123694	5000.243471	7500.445494	10002.549877	25009.421612	500036.699951	10000
