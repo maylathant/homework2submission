@@ -1,0 +1,52 @@
+#########################################################################
+########### Anthony Maylath Solutions for HPC HW3 #######################
+#########################################################################
+#########################################################################
+
+For all questions:
+
+I ran my code on a Dual Core Intel i5 with 2.4 GHz processor speed and 8 GB
+of RAM.
+
+#########################################################################
+
+Question 1:
+
+I optimize sin4_intrin() for both AVX and SSE2. Since my machine is SSE, I did not test the AVX portion.
+
+I add sin Taylor series through to O(x^11). The error for sin4_intrin() is exactly the same as sin4_tayor(). The timing for sin4_intrin() is within 1/10th of a second of sin4_tayor().
+
+#############
+Extra Credit
+#############
+
+The value of sine will be the imaginary part of e^{i\theta}. Hence, we can translate
+from [-\pi/4,\pi/4] by taking cosine, -sine, and minus cosine to get regions [\pi/4,3\pi/4], [3\pi/4,5\pi/4], and [5\pi/4,7\pi/4] respectively. 
+
+I take the approach of evaluating sin(\theta + i*\pi/4) for i = 0,1,2,3 to obtain points in the other intervals of the unit circle. With this method to evaluate sine anywhere on the unit circle, we can value sine at any point on the real line by translation.
+
+Note that I ignore the initial values of x[i] for i not divisible by 4. These values are filled by sin(\theta + i*\pi/4) for i = 1,2,3.
+
+The functions sin4_taylorEC and sin4_intrinEC compute the taylor and vector approximations to sine using symmetry. sin4_taylorEC obtains four sine values with one cosine evaluation and one sine evaluation. The remaining two values are obtained via symmetry. sin4_intrinEC computes sin(\theta + i*\pi/4) for i = 0,1 with SSE2 intrinsics then uses symmetry to obtain sin(\theta + i*\pi/4) for i = 2,3. 
+
+sin4_referenceEC(\theta) computes sin(\theta + i*\pi/4) for i = 0,1,2,3 with the built in sin() function and is used to verify accuracy.
+
+sin4_taylorEC performs a bit faster than sin4_taylor at 1.5849 seconds vs. 2.0185 seconds for N = 1000000. sin4_intrinEC has a similar speed up. The worst error; however, increases to 10^-10 and 10^-5 respectively. These errors occur even when we take O(x^11) in the Taylor series.
+
+#########################################################################
+
+Question 2:
+
+Since my code only has two cores, I run my code on the CIMS resource, crackle4.cims.nyu.edu, to get results with more cores.
+
+crackle4 has two Intel Xeon E5630 2.53 GHz processors with 16 cores and 64 GB of RAM.
+
+Below I give the timings in seconds for different numbers of omp threads. Two threads clearly performs better than one. Three threads does a bit better than two. However, greater than three threads seems to slow down performance. The serial version took about 0.29 seconds, which is slightly slower than most of the multi-thread timings.
+
+Threads	Time1	0.378032	0.2880973	0.2510624	0.2533665	0.2561066	0.2514737	0.2562978	0.2583229	0.28720810	0.301509
+
+Since crackle4 is a shared resource, my program may not utilize its full compute power. To get a comparison, I also run my code on my laptop which is an Intel Dual Core i5 @ 2.4 GHz and 8GB of RAM.
+
+On my laptop, the performance peaked with 4 threads at 0.3074 seconds. The single thread parallel scan took 1.06 seconds and the serial version took 0.55 seconds.
+
+
