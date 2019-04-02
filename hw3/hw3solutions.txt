@@ -39,13 +39,13 @@ Question 2:
 
 Since my code only has two cores, I run my code on the CIMS resource, crackle4.cims.nyu.edu, to get results with more cores.
 
-crackle4 has two Intel Xeon E5630 2.53 GHz processors with 16 cores and 64 GB of RAM.
+crackle4 has two Intel Xeon E5630 2.53 GHz processors with 16 cores and 64 GB of RAM. The Intel Xeon uses x86 NetBurst architecture.
 
 Below I give the timings in seconds for different numbers of omp threads. Two threads clearly performs better than one. Three threads does a bit better than two. However, greater than three threads seems to slow down performance. The serial version took about 0.29 seconds, which is slightly slower than most of the multi-thread timings.
 
 Threads	Time1	0.378032	0.2880973	0.2510624	0.2533665	0.2561066	0.2514737	0.2562978	0.2583229	0.28720810	0.301509
 
-Since crackle4 is a shared resource, my program may not utilize its full compute power. To get a comparison, I also run my code on my laptop which is an Intel Dual Core i5 @ 2.4 GHz and 8GB of RAM.
+Since crackle4 is a shared resource, my program may not utilize its full compute power. To get a comparison, I also run my code on my laptop which is an Intel Dual Core i5 @ 2.4 GHz and 8GB of RAM. The processor runs on the x86-64 “Sandy Bridge” architecture.
 
 On my laptop, the performance peaked with 4 threads at 0.3074 seconds. The single thread parallel scan took 1.06 seconds and the serial version took 0.55 seconds.
 
