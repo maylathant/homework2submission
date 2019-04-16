@@ -77,12 +77,18 @@ void iniLaplace2D(double **f, double **u, double **result, int N){
 	}
 }
 
-void iniRowMajor2D(double **u, double *result, int N){
+void iniRowMajor2D(double *result, int N){
 	/*
-	Copy matrix u into vector result with row major ordering
+	Initalize laplace result with row major ordering
 	*/
-	for(int i = 0; i < N; i++){
-		for(int j = 0; j < n; j++)
-			result[i*N + j] = u[i][j];
+	for(int i = 0; i<N; i++){
+		for(int j = 0; j<N; j++){
+			//Assign boundary points zero and 1 everywhere else
+			if (i == 0 || j == 0 || i == N-1 || j == N-1){
+				result[N*i+j] = 0;
+			}else{
+				result[N*i+j] = 1;
+			}
+		}
 	}
 }

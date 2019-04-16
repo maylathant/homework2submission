@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{result}\PYG{p}{[}\PYG{n}{idx}\PYG{p}{]} \PYG{o}{=} \PYG{p}{(}\PYG{n}{f\PYGZus{}h} \PYG{o}{+} \PYG{n}{u}\PYG{p}{[}\PYG{n}{idx} \PYG{o}{\PYGZhy{}} \PYG{n}{N}\PYG{p}{]} \PYG{o}{+} \PYG{n}{u}\PYG{p}{[}\PYG{n}{idx} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{+} \PYG{n}{u}\PYG{p}{[}\PYG{n}{idx} \PYG{o}{+} \PYG{n}{N}\PYG{p}{]} \PYG{o}{+} \PYG{n}{u}\PYG{p}{[}\PYG{n}{idx} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{])}\PYG{o}{/}\PYG{l+m+mi}{4}\PYG{p}{;}
+\end{Verbatim}

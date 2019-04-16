@@ -1,0 +1,270 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{MnSymbol}%
+\usepackage{wasysym}%
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{amsmath}
+\usepackage{csquotes}
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{wrapfig}
+\usepackage{esvect}
+\usepackage[section]{placeins}
+\usepackage{minted}
+\usepackage{hyperref}
+\graphicspath{ {/Users/anthonymaylath/Documents/NYU/High_Performance_Computing/HW/HW1} }
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\batchmode
+
+\title{High Performance Computing - HW 4}
+\author{Anthony Maylath}
+
+\lstset{
+numbers=left, 
+numberstyle=\small, 
+numbersep=8pt, 
+frame = single, 
+language=Pascal, 
+framexleftmargin=15pt}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+
+The Courant Institute for Mathematical Sciences, New York University \\ 
+
+\end{center}
+
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+\setcounter{MaxMatrixCols}{13}
+
+\section{Question 1}
+
+I will use module cuda-9.0 to run and compile my code. The user may need to load the cuda-9.0 module before attempting to compile. For the CPU inner product, I simply perform a reduction on a loop that iteratively adds a[i] + b[i] to a sum. I use -O3 optimized openmp for the CPU portion. For the CUDA implementation, I modify function reduction\_kernal2() to produce function innerprod\_kernel2(). There is exactly one line of code different in these two functions. Instead of initializing smem to $a[idx]$, I initalize to $a[idx] * b[idx]$. Hence, if we call reduction\_kernal2() recursively after a call to innerprod\_kernel2(), the result will be the inner product of a and b. The full logic is implemented in the function, innerprod\_CUDA(). I use this function to compute the inner product of x\_d and y\_d.\\
+
+For the matrix multiplication implimentation, I initialize a vector, $A$ which is a matrix of size $N \times N$ in row major order. For the purpose of this question, I intialize $A_{ij} = j$ and compute the matrix vector product $Ay$ by calling innerprod\_CUDA() $N$ times for each row of $A$.\\
+
+Table \ref{cuda1} through \ref{cuda5} shows the bandwidth on various cuda resources for inner product and matrix multiplication. With ``Same Row'' matrix vector multiplication, I assume the rows of the matrix are identical and repeat the computation with the same row in memory. WIth the ``Diff Row'' version, I copy a row onto device memory for every inner product to compute the resulting vector.\\
+
+I run my code on cuda1, cuda2, and cuda5. I ran each of m algorithms with dimension 1,000, 10,000, and 60,000. For every algorithm, the bandwidth increased with dimension size. The performance was a bit worse on cuda5 which makes sense as the resource has fewer cores than cuda1 or cuda2.
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c| }
+\hline
+ Resource & Algorithm & N & Bandwidth (GB/s) \\ 
+ \hline
+cuda1 & Inner Product & 1000 & 0.38\\
+\hline
+cuda1 & Matrix Vector Mult (Same Row) & 1000 & 1.072\\
+\hline
+cuda1 & Matrix Vector Mult (Diff Row) & 1000 & 1.2967\\
+\hline
+cuda1 & Inner Product & 10000 &  3.2168\\
+\hline
+cuda1 & Matrix Vector Mult (Same Row) & 10000 & 8.668\\
+\hline
+cuda1 & Matrix Vector Mult (Diff Row) & 10000 & 8.576\\
+\hline
+cuda1 & Inner Product & 60000 &  36.085\\
+\hline
+cuda1 & Matrix Vector Mult (Same Row) & 60000 & 48.375\\
+\hline
+cuda1 & Matrix Vector Mult (Diff Row) & 60000 & 15.819\\
+\hline
+\end{tabular}
+ \caption{Performance on cuda1}
+ \label{cuda1}
+ \end{table}
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c| }
+\hline
+ Resource & Algorithm & N & Bandwidth (GB/s) \\ 
+ \hline
+cuda2 & Inner Product & 1000 & 0.3843\\
+\hline
+cuda2 & Matrix Vector Mult (Same Row) & 1000 & 0.79749\\
+\hline
+cuda2 & Matrix Vector Mult (Diff Row) & 1000 & 0.8831\\
+\hline
+cuda2 & Inner Product & 10000 &  4.036868\\
+\hline
+cuda2 & Matrix Vector Mult (Same Row) & 10000 & 10.19127\\
+\hline
+cuda2 & Matrix Vector Mult (Diff Row) & 10000 & 6.915\\
+\hline
+cuda2 & Inner Product & 60000 &  36.085\\
+\hline
+cuda2 & Matrix Vector Mult (Same Row) & 60000 & 48.375\\
+\hline
+cuda2 & Matrix Vector Mult (Diff Row) & 60000 & 15.819\\
+\hline
+\end{tabular}
+ \caption{Performance on cuda2}
+ \label{cuda2}
+ \end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c| }
+\hline
+ Resource & Algorithm & N & Bandwidth (GB/s) \\ 
+ \hline
+cuda5 & Inner Product & 1000 & 0.38\\
+\hline
+cuda5 & Matrix Vector Mult (Same Row) & 1000 & 0.893\\
+\hline
+cuda5 & Matrix Vector Mult (Diff Row) & 1000 & 1.072\\
+\hline
+cuda5 & Inner Product & 10000 &  3.941\\
+\hline
+cuda5 & Matrix Vector Mult (Same Row) & 10000 & 7.086\\
+\hline
+cuda5 & Matrix Vector Mult (Diff Row) & 10000 & 4.458\\
+\hline
+cuda5 & Inner Product & 60000 &  26.773\\
+\hline
+cuda5 & Matrix Vector Mult (Same Row) & 60000 & 35.401\\
+\hline
+cuda5 & Matrix Vector Mult (Diff Row) & 60000 & 6.734\\
+\hline
+\end{tabular}
+ \caption{Performance on cuda5}
+ \label{cuda5}
+ \end{table}
+
+\newpage
+
+\section{Question 2}
+
+Note that I use block size = 32 for all code in Question 2. I implement a function, jacobi\_kernel(), in file 2dJacobi.cu which computes the Jacobi step. The function uses shared memory for the right hand side, f. I filter out the perimeter of the matrix (first/last row or column) by returning from the function if the index is on the perimeter. The function uses row major matrix implementation with the update step as follows:
+
+\begin{minted}[breaklines]{C}
+result[idx] = (f_h + u[idx - N] + u[idx - 1] + u[idx + N] + u[idx + 1])/4;
+\end{minted}
+
+where $u$ is the vector containing the previous jacobi step.
+
+\subsection{Extra Credit}
+
+I implement two CUDA kernels to facilitate the red/black Gauss-Seidel method. The key step of each of these methods is to identify black and red points respectively. Once we identify these points, they are skipped for the next step of the iteration. For instance, in the kernel, cudaRed(), I skip the black points as follows:
+
+\begin{minted}[breaklines]{C}
+  bool black = (idx/N % 2 == 0) && (idx % 2 == 1); //If true then black node
+  black = black || (idx/N % 2 == 1) && (idx % 2 == 0);
+
+  if(black){return;} //If on a black node
+\end{minted}
+
+The logic is similar for function, cudaBlack(). The remainder of the implementation for Gauss-Seidel is similar to my implementation in Homework 2.\\
+
+When you call an executable version of my code, you can either specify zero or four arguments. If specified, the four arguments are matrix dimension, number of iterations, number of omp threads, and solver (either ``GS'' or ``jacobi''). By default, I have a matrix of size 4 with 4 omp threads, 100 iterations, and the jacobi solver.
+
+\subsection{Results}
+
+Tables \ref{cuda1lp} through \ref{cuda5lp} show the performance on cuda\{1,2,5\}. cuda2 seems to do better for larger problem sizes while cuda1 performs best on smaller problem sizes. The performance between Jacobi and Gauss-Seidel is roughly the same. However, Gauss-Seidel seems to be a bit slower on average.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c|c|c| }
+\hline
+ Resource & Algorithm & N &Iterations & Time & Bandwidth (GB/s) \\ 
+  \hline
+cuda1 & Jacobi & 100 & 100 & 0.00079 & 49.342\\
+ \hline
+cuda1 & Jacobi & 100 & 1000 & 0.0062 & 64.058\\
+\hline
+cuda1 & Jacobi & 1000 & 1000 & 0.1892 & 29.8085\\
+\hline
+cuda1 & Jacobi & 1500 & 100 & 0.0445 & 201.962080\\
+\hline
+cuda1 & GS & 100 & 100 & 0.00078 & 49.688\\
+ \hline
+cuda1 & GS & 100 & 1000 & 0.0067 & 59.4022\\
+\hline
+cuda1 & GS & 1000 & 1000 & 0.1879 & 30.016\\
+\hline
+cuda1 & GS & 1500 & 100 & 0.0447 & 201.3799\\
+\hline
+\end{tabular}
+ \caption{Performance on cuda1: Laplace}
+ \label{cuda1lp}
+ \end{table}
+ 
+ \begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c|c|c| }
+\hline
+ Resource & Algorithm & N &Iterations & Time & Bandwidth (GB/s) \\ 
+  \hline
+cuda2 & Jacobi & 100 & 100 & 0.00116 & 33.1825\\
+ \hline
+cuda2 & Jacobi & 100 & 1000 & 0.01024 & 38.87\\
+\hline
+cuda2 & Jacobi & 1000 & 1000 & 0.0464 & 121.4557\\
+\hline
+cuda2 & Jacobi & 1500 & 100 & 0.012324 & 726.869\\
+\hline
+cuda2 & GS & 100 & 100 & 0.001114 & 34.3567\\
+ \hline
+cuda2 & GS & 100 & 1000 & 0.0122 & 32.616\\
+\hline
+cuda2 & GS & 1000 & 1000 & 0.04645 & 121.3076\\
+\hline
+cuda2 & GS & 1500 & 100 & 0.012345 & 725.7375\\
+\hline
+\end{tabular}
+ \caption{Performance on cuda2: Laplace}
+ \label{cuda2lp}
+ \end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c|c|c| }
+\hline
+ Resource & Algorithm & N &Iterations & Time & Bandwidth (GB/s) \\ 
+  \hline
+cuda5 & Jacobi & 100 & 100 & 0.00114 & 34.122\\
+ \hline
+cuda5 & Jacobi & 100 & 1000 & 0.0089 & 44.731\\
+\hline
+cuda5 & Jacobi & 1000 & 1000 & 0.2219 & 25.4098\\
+\hline
+cuda5 & Jacobi & 1500 & 100 & 0.06052 & 148.6\\
+\hline
+cuda5 & GS & 100 & 100 & 0.0012 & 36.5328\\
+ \hline
+cuda5 & GS & 100 & 1000 & 0.0086 & 46.165\\
+\hline
+cuda5 & GS & 1000 & 1000 & 0.2352 & 23.95034\\
+\hline
+cuda5 & GS & 1500 & 100 & 0.0558 & 161.152\\
+\hline
+\end{tabular}
+ \caption{Performance on cuda5: Laplace}
+ \label{cuda5lp}
+ \end{table}
+ 
+ \newpage
+ 
+ \section{Question 3}
+ 
+My team will include John Donaghy and Anthony Maylath. We plan to explore MPI implementations of clustering algorithms. We will begin by implementing a serial version of the k-Means algorithm as a baseline. We will then look for ways to engineer speedup using MPI. Time permitting, we will extend the implementation to the EM clustering algorithm.\\
+ 
+We will mainly apply our clustering algorithm to the Zillow’s Home Value Prediction (Zestimate) dataset found on Kaggle. The dataset contains individual property features from homes in Southern Californa from 2016-2017. Sample fields include Year Built, Overall Condition, and Garage Area. There are a total of 58 features in the dataset. We will initially run our code on a subset of these features (roughly 8) and add more features as time permits.\\
+
+\begin{itemize}
+  \item $\textbf{Zillow Dataset:}$ \url{https://www.kaggle.com/c/zillow-prize-1/data}
+\end{itemize}
+
+\end{document}
