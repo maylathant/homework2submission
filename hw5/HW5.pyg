@@ -1,0 +1,4 @@
+  bool black = (idx/N % 2 == 0) && (idx % 2 == 1); //If true then black node
+  black = black || (idx/N % 2 == 1) && (idx % 2 == 0);
+
+  if(black){return;} //If on a black node
