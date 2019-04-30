@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  27 APR 2019 16:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  29 APR 2019 23:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -975,53 +975,51 @@ Underfull \hbox (badness 10000) in paragraph at lines 53--54
 
  []
 
-
-Overfull \hbox (17.7166pt too wide) in paragraph at lines 55--57
-[]\OT1/cmr/m/n/10 mpirun -np [num pro-cesses] --oversubscribe -H crunchy5.cims.
-nyu.edu, crunchy6.cims.nyu.edu
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 55--57
-
- []
-
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 56.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 56.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [1
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 132.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 135.
 [2]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 132.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 135.
 (./HW5.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 132.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 132.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 135.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 135.
 Package rerunfilecheck Info: File `HW5.out' has not changed.
 (rerunfilecheck)             Checksum: B52DA0D7B032B31F891B7C742590DC22;90.
 runsystem(rm HW5.pyg)...disabled (restricted).
 
  ) 
 Here is how much of TeX's memory you used:
- 15489 strings out of 492649
- 244978 string characters out of 6129622
+ 15849 strings out of 492649
+ 248060 string characters out of 6129622
  415932 words of memory out of 5000000
- 19077 multiletter control sequences out of 15000+600000
- 21904 words of font info for 83 fonts, out of 8000000 for 9000
+ 19429 multiletter control sequences out of 15000+600000
+ 22203 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,9n,77p,813b,392s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/mnsymbol/MnSymbolE.enc}</
-usr/local/texlive/2018/texmf-dist/fonts/type1/public/mnsymbol/MnSymbol10.pfb></
-usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></u
-sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
-r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
-local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/lo
-cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on HW5.pdf (2 pages, 70655 bytes).
+ 42i,9n,77p,813b,1323s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/mnsymbol/MnSymbolC.enc}{/
+usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/mnsymbol/MnSymbolE.enc}</usr/
+local/texlive/2018/texmf-dist/fonts/type1/public/mnsymbol/MnSymbol10.pfb></usr/
+local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/l
+ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/lo
+cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
+l/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/
+texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/te
+xlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texli
+ve/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on HW5.pdf (2 pages, 96562 bytes).
 PDF statistics:
- 56 PDF objects out of 1000 (max. 8388607)
- 45 compressed objects within 1 object stream
- 7 named destinations out of 1000 (max. 500000)
+ 71 PDF objects out of 1000 (max. 8388607)
+ 58 compressed objects within 1 object stream
+ 11 named destinations out of 1000 (max. 500000)
  17 words of extra memory for PDF output out of 10000 (max. 10000000)
 
