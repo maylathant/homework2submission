@@ -82,7 +82,7 @@ void iniRowMajor2D(double **u, double *result, int N){
 	Copy matrix u into vector result with row major ordering
 	*/
 	for(int i = 0; i < N; i++){
-		for(int j = 0; j < n; j++)
+		for(int j = 0; j < N; j++)
 			result[i*N + j] = u[i][j];
 	}
 }
