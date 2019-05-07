@@ -1,8 +1,8 @@
 #!/bin/bash
 #
-##SBATCH --nodes=4
-#SBATCH --nodes=4
-#SBATCH --ntasks-per-node=4
+##SBATCH --nodes=16
+#SBATCH --nodes=16
+#SBATCH --ntasks-per-node=16
 #SBATCH --cpus-per-task=1
 #SBATCH --time=0:30:00
 #SBATCH --mem=16GB
@@ -18,6 +18,6 @@ module load openmpi/intel/3.1.3
 
 make
 
-mpirun -np 16 ./jacobi_mpi 1600 100
-mpirun -np 16 ./jacobi_mpi 1600 1000
-mpirun -np 16 ./jacobi_mpi 1600 10000
+mpirun -np 256 ./jacobi_mpi 25600 100
+mpirun -np 256 ./jacobi_mpi 25600 1000
+mpirun -np 256 ./jacobi_mpi 25600 10000
