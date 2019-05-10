@@ -18,9 +18,6 @@ module load openmpi/intel/3.1.3
 
 make
 
-mpirun -np 1 ./sample_sort 10000
-mpirun -np 1 ./sample_sort 100000
-mpirun -np 1 ./sample_sort 1000000
 
 mpirun -np 4 ./sample_sort 10000
 mpirun -np 4 ./sample_sort 100000
@@ -46,7 +43,6 @@ mpirun -np 200 ./sample_sort 10000
 mpirun -np 200 ./sample_sort 100000
 mpirun -np 200 ./sample_sort 1000000
 
-mpirun -np 1 ./sample_sort 10000
 mpirun -np 4 ./sample_sort 40000
 mpirun -np 10 ./sample_sort 100000
 mpirun -np 16 ./sample_sort 160000

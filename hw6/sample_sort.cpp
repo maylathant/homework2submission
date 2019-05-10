@@ -133,7 +133,7 @@ int main(int argc, char * argv[]){
   MPI_Barrier(MPI_COMM_WORLD);
   double elapsed = MPI_Wtime() - tt;
   if (0 == mpirank) {
-    printf("Time elapsed is %f seconds. rank = %d\n", elapsed, mpirank);
+    printf("Time elapsed is %f seconds. World Size = %d, Number of Points %ld\n", elapsed, p, N);
   }
 
   { // Write output to a file
