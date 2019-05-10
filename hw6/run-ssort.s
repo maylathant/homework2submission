@@ -22,26 +22,32 @@ make
 mpirun -np 4 ./sample_sort 10000
 mpirun -np 4 ./sample_sort 100000
 mpirun -np 4 ./sample_sort 1000000
+mpirun -np 4 ./sample_sort 10000000
 
 mpirun -np 10 ./sample_sort 10000
 mpirun -np 10 ./sample_sort 100000
 mpirun -np 10 ./sample_sort 1000000
+mpirun -np 10 ./sample_sort 10000000
 
 mpirun -np 16 ./sample_sort 10000
 mpirun -np 16 ./sample_sort 100000
 mpirun -np 16 ./sample_sort 1000000
+mpirun -np 16 ./sample_sort 10000000
 
 mpirun -np 50 ./sample_sort 10000
 mpirun -np 50 ./sample_sort 100000
 mpirun -np 50 ./sample_sort 1000000
+mpirun -np 50 ./sample_sort 10000000
 
 mpirun -np 100 ./sample_sort 10000
 mpirun -np 100 ./sample_sort 100000
 mpirun -np 100 ./sample_sort 1000000
+mpirun -np 100 ./sample_sort 10000000
 
 mpirun -np 200 ./sample_sort 10000
 mpirun -np 200 ./sample_sort 100000
 mpirun -np 200 ./sample_sort 1000000
+mpirun -np 200 ./sample_sort 10000000
 
 mpirun -np 4 ./sample_sort 40000
 mpirun -np 10 ./sample_sort 100000
