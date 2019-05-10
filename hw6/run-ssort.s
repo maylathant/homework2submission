@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-##SBATCH --nodes=10
-#SBATCH --nodes=10
-#SBATCH --ntasks-per-node=20
+##SBATCH --nodes=16
+#SBATCH --nodes=16
+#SBATCH --ntasks-per-node=16
 #SBATCH --cpus-per-task=1
-#SBATCH --time=1:15:00
+#SBATCH --time=1:00:00
 #SBATCH --mem=16GB
 #SBATCH --job-name=sample_sort_time
 #SBATCH --mail-type=END
