@@ -13,7 +13,6 @@ q2 : sample_sort.cpp hw6helper.h
 #Question 3
 q3 : multigrid_mpi.cpp utils.h
 	g++-8 -O3 -fopenmp multigrid_omp.cpp -o multigrid_omp
-	g++-8 -O3 multigrid_omp.cpp -o multigrid_noomp
 
 #Clean executables
 clean :

@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
-#include "utils.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif
@@ -152,8 +151,10 @@ int main(int argc, char * argv[])
   #endif
 
   /* timing */
-  Timer t;
-  t.tic();
+  #ifdef _OPENMP
+  double t = omp_get_wtime();
+  #endif
+  
 
   /* Allocation of vectors, including left and right bdry points */
   double *u[levels], *rhs[levels];
@@ -225,7 +226,10 @@ int main(int argc, char * argv[])
   }
 
   /* timing */
-  double elapsed = t.toc();
+  #ifdef _OPENMP
+  double elapsed = omp_get_wtime() - t;
   printf("Time elapsed is %f seconds.\n", elapsed);
+  #endif
+
   return 0;
 }
