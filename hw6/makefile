@@ -16,4 +16,4 @@ q3 : multigrid_mpi.cpp utils.h
 
 #Clean executables
 clean :
-	rm -rf jacobi_mpi sample_sort multigrid_omp multigrid_noomp output*
+	rm -rf jacobi_mpi sample_sort multigrid_omp output*

@@ -4,8 +4,8 @@
 #SBATCH --nodes=16
 #SBATCH --ntasks-per-node=16
 #SBATCH --cpus-per-task=1
-#SBATCH --time=1:00:00
-#SBATCH --mem=16GB
+#SBATCH --time=0:30:00
+#SBATCH --mem=20GB
 #SBATCH --job-name=sample_sort_time
 #SBATCH --mail-type=END
 ##SBATCH --mail-user=aem578@nyu@nyu.edu

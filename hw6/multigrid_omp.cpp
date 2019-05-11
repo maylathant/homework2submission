@@ -103,6 +103,7 @@ void jacobi(double *u, double *rhs, int N, double hsq, int ssteps)
   /* Jacobi damping parameter -- plays an important role in MG */
   double omega = 2./3., utemp; //Add utemp to avoid a memory read
   double *unew = (double*) malloc(sizeof(double) * (N+1));
+  double *utlist; //For pointer flipping
   for (i=0; i < (N+1); ++i) {
     unew[i] = 0.;
   }
@@ -114,7 +115,8 @@ void jacobi(double *u, double *rhs, int N, double hsq, int ssteps)
       utemp = u[i];
       unew[i]  = utemp +  omega * 0.5 * (hsq*rhs[i] + u[i - 1] + u[i + 1] - 2*utemp);
     }
-    memcpy(u, unew, (N+1)*sizeof(double));
+    //memcpy(u, unew, (N+1)*sizeof(double));
+    utlist = u; u = unew; unew = utlist; //Assign new u to existing u after parallel part
   }
   free (unew);
 }
@@ -122,7 +124,7 @@ void jacobi(double *u, double *rhs, int N, double hsq, int ssteps)
 
 int main(int argc, char * argv[])
 {
-  int i, Nfine, l, iter, max_iters, levels, ssteps = 3, num_threads = 1;
+  int i, Nfine, l, iter, max_iters, levels, ssteps = 2, num_threads = 1;
 
   if (argc < 3 || argc > 5) {
     fprintf(stderr, "Usage: ./multigrid_1d Nfine maxiter [s-steps]\n");
@@ -135,6 +137,7 @@ int main(int argc, char * argv[])
   sscanf(argv[2], "%d", &max_iters);
   if (argc > 3){
     sscanf(argv[3], "%d", &ssteps);
+    if(ssteps%2 != 0){fprintf(stderr, "s-steps must be a power of two\n"); abort();}
     if(argc > 4)
       sscanf(argv[4], "%d", &num_threads);
   }
