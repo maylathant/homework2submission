@@ -6,7 +6,7 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --time=0:35:00
 #SBATCH --mem=60GB
-#SBATCH --job-name=JacobiWeakScale
+#SBATCH --job-name=Multigridaem
 #SBATCH --mail-type=END
 ##SBATCH --mail-user=aem578@nyu@nyu.edu
 #SBATCH --output=slurm_%j.out
