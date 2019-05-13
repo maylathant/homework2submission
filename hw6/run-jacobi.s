@@ -4,7 +4,7 @@
 #SBATCH --nodes=16
 #SBATCH --ntasks-per-node=16
 #SBATCH --cpus-per-task=1
-#SBATCH --time=0:30:00
+#SBATCH --time=0:35:00
 #SBATCH --mem=16GB
 #SBATCH --job-name=JacobiWeakScale
 #SBATCH --mail-type=END
@@ -34,6 +34,27 @@ mpirun -np 16 ./jacobi_mpi 1600 10000
 mpirun -np 64 ./jacobi_mpi 6400 100
 mpirun -np 64 ./jacobi_mpi 6400 1000
 mpirun -np 64 ./jacobi_mpi 6400 10000
+
+mpirun -np 256 ./jacobi_mpi 25600 100
+mpirun -np 256 ./jacobi_mpi 25600 1000
+mpirun -np 256 ./jacobi_mpi 25600 10000
+
+mpirun -np 1 ./jacobi_noblock 100 100
+mpirun -np 1 ./jacobi_noblock 100 1000
+mpirun -np 1 ./jacobi_noblock 100 10000
+
+mpirun -np 4 ./jacobi_noblock 400 100
+mpirun -np 4 ./jacobi_noblock 400 1000
+mpirun -np 4 ./jacobi_noblock 400 10000
+
+
+mpirun -np 16 ./jacobi_noblock 1600 100
+mpirun -np 16 ./jacobi_noblock 1600 1000
+mpirun -np 16 ./jacobi_noblock 1600 10000
+
+mpirun -np 64 ./jacobi_noblock 6400 100
+mpirun -np 64 ./jacobi_noblock 6400 1000
+mpirun -np 64 ./jacobi_noblock 6400 10000
 
 mpirun -np 256 ./jacobi_mpi 25600 100
 mpirun -np 256 ./jacobi_mpi 25600 1000

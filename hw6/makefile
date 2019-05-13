@@ -2,8 +2,9 @@
 all : q1 q2 q3
 
 #Question 1
-q1 : jacobi_mpi.cpp
+q1 : jacobi_mpi.cpp jacobi_noblock.cpp
 	mpicxx -O3 jacobi_mpi.cpp -o jacobi_mpi
+	mpicxx -O3 jacobi_noblock.cpp -o jacobi_noblock
 
 #Question 2
 q2 : sample_sort.cpp hw6helper.h
@@ -16,4 +17,4 @@ q3 : multigrid_mpi.cpp utils.h
 
 #Clean executables
 clean :
-	rm -rf jacobi_mpi sample_sort multigrid_omp output*
+	rm -rf jacobi_mpi jacobi_noblock sample_sort multigrid_omp output*

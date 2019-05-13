@@ -42,6 +42,10 @@ The Courant Institute for Mathematical Sciences, New York University \\
 
 \setcounter{MaxMatrixCols}{13}
 
+\section{Question 0}
+
+We have completed an MPI implementation of the Kmeans and EM algorithms. At this point, Kmeans is pretty optimized while we are still improving the EM implementation. We ran scalability and timing tests on Kmeans and found descent performance. Our plan is to polish our EM  implementation using similar HPC techniques and compare performance and results between the two. We have not yet started compiling the report or presentation slides.
+
 \section{Question 1}
 
 My implementation can be found $jacobi\_mpi.cpp$. The implementation takes two command line arguments: the first sets the dimension of the problem, $N$, and the second specifies the max number of Jacobi iterations. My implementation uses row major ordering for the solution $lu$. I send a different communication depending on where the process falls on the grid. If the process computes the solution on the top row, then don't comunicate ghost values for the top. I filter out top row comunication by checking if $mpirank >= \sqrt{p}$ where p is the number of processes. I apply similar checks on all four edges of ghost values.\\
@@ -83,14 +87,41 @@ I ran my timings on Prince with 16 nodes, 16 tasks per node and 16GB of memory. 
     \begin{minipage}{0.45\textwidth}
         \centering
         \includegraphics[width=1.2\textwidth]{q2strongscaling.pdf} % first figure itself
-        \caption{Sample Sort: Strong Scaling}
+        \caption{Sample Sort: Strong Scaling Timings}
         \label{fig3}
     \end{minipage}\hfill
          \begin{minipage}{0.45\textwidth}
         \centering
         \includegraphics[width=1.2\textwidth]{q2weakscaling.pdf} % second figure itself
-        \caption{Weak Scaling for 10,000 Points per Process}
+        \caption{Weak Scaling for 10,000 Points per Process - Timings}
         \label{fig4}
+    \end{minipage}
+\end{figure}
+
+\lipsum
+
+
+\section{Question 3: Extra Credit}
+
+I opted to parallize the one dimensional multigrid method in openmp. The my implementation is an alteration of the code available on git for lecture13. The implementation now requires 4 command line parameters with the fourth parameter being the number of omp threads. I added parallel for statements to the set\_zero, compute\_residual, and jacobi functions. In addition, I saw speed up by adding parallel for statements to the coarsen and refine\_and\_add functions despite an exponentially decreasing amount of work with each v-step. These functions also have parallel for pragmas in my implementation. Instead of performing a memcpy with each jacobi step, I simply switch the $u$ and $unew$ pointers. This speeds things up, but requires the $ssteps$ parameter to be even. Finally, I added a reduction to the function $compute\_norm$.\\
+
+I attempted to run my implementation on Prince, but I did not see any speed up. For omp\_threads = 1,...,10 the run time was always around 10 seconds for $N = $ 100 million. However, I was able to get a clear speedup on CIMS crackle2. Figures \ref{fig5} and \ref{fig6} show the strong and weak scaling respectively for omp threads = $1,2,...10$. For strong scaling, I always use 700 million points. For weak scaling I start with 100 million points and add another 100 million points for each additional omp thread. For strong scaling, the optimal number of omp threads for 700 million points seems to be between 4 and 7. For weak scaling, a line fit estimates that each omp thread adds about 6 seconds of run time. The weak scaling isn't great but its much better than running serially as the serial code takes about 9 seconds for 100 million points. If we scale this up linearly, that implies the serial code should take around 90 seconds for 1 billion points. However, we see better performance on the parallel implemenation with around 63 seconds on 1 billion points and 10 threads.
+
+\lipsum
+
+\begin{figure}[!h]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=1.2\textwidth]{q3strongscaling.pdf} % first figure itself
+        \caption{crackle2 - Strong Scaling Timings}
+        \label{fig5}
+    \end{minipage}\hfill
+         \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=1.2\textwidth]{q3weakscaling.pdf} % second figure itself
+        \caption{crackle2 - Weak Scaling Timings}
+        \label{fig6}
     \end{minipage}
 \end{figure}
 
