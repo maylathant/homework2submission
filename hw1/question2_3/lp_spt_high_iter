@@ -1,0 +1,31 @@
+#Produce output for HW1 Question3
+
+cd /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/HW/HW1/question2_3
+
+#For -O0 optimization
+g++ -O0 laplace_dyn.c -o laplace_dyn
+echo "-O0 Compilation Done"
+
+./laplace_dyn 100 10000 jacobi > lp_result
+./laplace_dyn 100 10000 GS >> lp_result
+
+echo "Small Dimension Done"
+
+./laplace_dyn 10000 10000 jacobi >> lp_result
+./laplace_dyn 10000 10000 GS >> lp_result
+
+echo "Large Dimension Done"
+
+#For -O3 optimization
+g++ -O3 laplace_dyn.c -o laplace_dyn
+echo "-O3 Compilation Done"
+
+./laplace_dyn 100 10000 jacobi >> lp_result
+./laplace_dyn 100 10000 GS >> lp_result
+
+echo "Small Dimension Done"
+
+./laplace_dyn 10000 10000 jacobi >> lp_result
+./laplace_dyn 10000 10000 GS >> lp_result
+
+echo "Large Dimension Done"

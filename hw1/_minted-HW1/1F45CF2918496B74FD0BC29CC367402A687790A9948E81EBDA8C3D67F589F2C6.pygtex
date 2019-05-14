@@ -1,0 +1,103 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{//Helper functions for HW1 Question3}
+\PYG{c+c1}{//Anthony Maylath 2/2/2019}
+
+\PYG{c+c1}{//Function to initialize A matrix and f array}
+\PYG{k+kt}{void} \PYG{n+nf}{iniLaplace}\PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{f}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{**}\PYG{n}{A}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{u}\PYG{p}{,} \PYG{k+kt}{double} \PYG{n}{h}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{N}\PYG{p}{)\PYGZob{}}
+	\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{N}\PYG{p}{;} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+		\PYG{c+c1}{//Initialize function and starting guess}
+		\PYG{n}{f}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mf}{1.0}\PYG{p}{;} \PYG{n}{u}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mf}{0.0}\PYG{p}{;}
+		
+		\PYG{c+c1}{//Initialize second derivative matrix}
+		\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{j} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{j}\PYG{o}{\PYGZlt{}}\PYG{n}{N}\PYG{p}{;} \PYG{n}{j}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+			\PYG{k}{if}\PYG{p}{(}\PYG{n}{i} \PYG{o}{==} \PYG{n}{j}\PYG{p}{)\PYGZob{}}\PYG{n}{A}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{n}{j}\PYG{p}{]}\PYG{o}{=}\PYG{l+m+mf}{2.0}\PYG{o}{/}\PYG{n}{h}\PYG{o}{/}\PYG{n}{h}\PYG{p}{;\PYGZcb{}}
+			\PYG{k}{else} \PYG{k}{if}\PYG{p}{(}\PYG{n}{i} \PYG{o}{==} \PYG{n}{j}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)\PYGZob{}}\PYG{n}{A}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{n}{j}\PYG{p}{]}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mf}{1.0}\PYG{o}{/}\PYG{n}{h}\PYG{o}{/}\PYG{n}{h}\PYG{p}{;\PYGZcb{}}
+			\PYG{k}{else} \PYG{k}{if}\PYG{p}{(}\PYG{n}{i} \PYG{o}{==} \PYG{n}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)\PYGZob{}}\PYG{n}{A}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{n}{j}\PYG{p}{]}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mf}{1.0}\PYG{o}{/}\PYG{n}{h}\PYG{o}{/}\PYG{n}{h}\PYG{p}{;\PYGZcb{}}
+			\PYG{k}{else} \PYG{p}{\PYGZob{}}\PYG{n}{A}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{n}{j}\PYG{p}{]}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;\PYGZcb{}}
+		\PYG{p}{\PYGZcb{}}
+	\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{//Run one iteration of Jacobi method}
+\PYG{k+kt}{void} \PYG{n+nf}{jacobi}\PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{f}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{**}\PYG{n}{A}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{u}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{N}\PYG{p}{)\PYGZob{}}
+	
+	\PYG{k+kt}{double} \PYG{n}{sp} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+	\PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{tp} \PYG{o}{=} \PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{*}\PYG{p}{)}\PYG{n}{malloc}\PYG{p}{(}\PYG{n}{N}\PYG{o}{*}\PYG{k}{sizeof}\PYG{p}{(}\PYG{k+kt}{double}\PYG{p}{));}
+	\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{N}\PYG{p}{;} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)} \PYG{n}{tp}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mf}{0.0}\PYG{p}{;}
+
+	\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{N}\PYG{p}{;} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+		\PYG{c+c1}{//Compute sumproduct for each i}
+		\PYG{n}{sp} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+		\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{j} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{j}\PYG{o}{\PYGZlt{}}\PYG{n}{N}\PYG{p}{;} \PYG{n}{j}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+			\PYG{k}{if}\PYG{p}{(}\PYG{n}{i} \PYG{o}{!=} \PYG{n}{j}\PYG{p}{)\PYGZob{}}\PYG{n}{sp} \PYG{o}{+=} \PYG{n}{A}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{n}{j}\PYG{p}{]}\PYG{o}{*}\PYG{n}{u}\PYG{p}{[}\PYG{n}{j}\PYG{p}{];\PYGZcb{}}
+		\PYG{p}{\PYGZcb{}}
+
+		\PYG{c+c1}{//Compute new iteration}
+		\PYG{n}{tp}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{p}{(}\PYG{n}{f}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n}{sp}\PYG{p}{)}\PYG{o}{/}\PYG{n}{A}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{n}{i}\PYG{p}{];}
+	\PYG{p}{\PYGZcb{}}
+
+	\PYG{c+c1}{//Copy tp into u and free tp}
+	\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{N}\PYG{p}{;} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)} \PYG{n}{u}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{tp}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}
+	\PYG{n}{free}\PYG{p}{(}\PYG{n}{tp}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+c1}{//Run one iteration of Gauess\PYGZhy{}Seidel}
+\PYG{k+kt}{void} \PYG{n+nf}{solveGS}\PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{f}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{**}\PYG{n}{A}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{u}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{N}\PYG{p}{)\PYGZob{}}
+	\PYG{k+kt}{double} \PYG{n}{sp} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+
+	\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{N}\PYG{p}{;} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+		\PYG{c+c1}{//Compute sumproduct for each i}
+		\PYG{n}{sp} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+		\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{j} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{j}\PYG{o}{\PYGZlt{}}\PYG{n}{N}\PYG{p}{;} \PYG{n}{j}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+			\PYG{k}{if}\PYG{p}{(}\PYG{n}{i} \PYG{o}{!=} \PYG{n}{j}\PYG{p}{)\PYGZob{}}\PYG{n}{sp} \PYG{o}{+=} \PYG{n}{A}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{n}{j}\PYG{p}{]}\PYG{o}{*}\PYG{n}{u}\PYG{p}{[}\PYG{n}{j}\PYG{p}{];\PYGZcb{}}
+		\PYG{p}{\PYGZcb{}}
+
+		\PYG{c+c1}{//Compute new iteration}
+		\PYG{n}{u}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{p}{(}\PYG{n}{f}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n}{sp}\PYG{p}{)}\PYG{o}{/}\PYG{n}{A}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{n}{i}\PYG{p}{];}
+	\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+cm}{/*Vector matrix multiplication}
+\PYG{c+cm}{Multiply matrix A and vector u;}
+\PYG{c+cm}{store the result in b*/}
+\PYG{k+kt}{void} \PYG{n+nf}{AuMult}\PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{**}\PYG{n}{A}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{u}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{b}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{N}\PYG{p}{)\PYGZob{}}
+	\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{N}\PYG{p}{;} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+		\PYG{n}{b}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+		\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{j} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{j}\PYG{o}{\PYGZlt{}}\PYG{n}{N}\PYG{p}{;} \PYG{n}{j}\PYG{o}{++}\PYG{p}{)}
+			\PYG{n}{b}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{+=} \PYG{n}{u}\PYG{p}{[}\PYG{n}{j}\PYG{p}{]}\PYG{o}{*}\PYG{n}{A}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{n}{j}\PYG{p}{];}
+	\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+cm}{/*Vector subtracttion}
+\PYG{c+cm}{Subtract vector f from u and store the result in b*/}
+\PYG{k+kt}{void} \PYG{n+nf}{vecSub}\PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{u}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{f}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{b}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{N}\PYG{p}{)\PYGZob{}}
+	\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{N}\PYG{p}{;} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+		\PYG{n}{b}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{u}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n}{f}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}
+	\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+cm}{/*Compute 2 norm of a vector b*/}
+\PYG{k+kt}{double} \PYG{n+nf}{norm2}\PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{b}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{N}\PYG{p}{)\PYGZob{}}
+	\PYG{k+kt}{double} \PYG{n}{res} \PYG{o}{=} \PYG{l+m+mf}{0.0}\PYG{p}{;}
+	\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{N}\PYG{p}{;} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)}
+		\PYG{n}{res} \PYG{o}{+=} \PYG{n}{b}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{*}\PYG{n}{b}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}
+	\PYG{k}{return} \PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{res}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+cm}{/*Compute error between Au and f*/}
+\PYG{k+kt}{double} \PYG{n+nf}{error2}\PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{**}\PYG{n}{A}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{u}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{f}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{N}\PYG{p}{)\PYGZob{}}
+	\PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{temp} \PYG{o}{=} \PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{*}\PYG{p}{)}\PYG{n}{malloc}\PYG{p}{(}\PYG{n}{N}\PYG{o}{*}\PYG{k}{sizeof}\PYG{p}{(}\PYG{k+kt}{double}\PYG{p}{));}
+	\PYG{k+kt}{double} \PYG{n}{res}\PYG{p}{;}
+
+	\PYG{c+c1}{//Compute Au}
+	\PYG{n}{AuMult}\PYG{p}{(}\PYG{n}{A}\PYG{p}{,}\PYG{n}{u}\PYG{p}{,}\PYG{n}{temp}\PYG{p}{,}\PYG{n}{N}\PYG{p}{);}
+	\PYG{c+c1}{//Compute Au \PYGZhy{} f}
+	\PYG{n}{vecSub}\PYG{p}{(}\PYG{n}{temp}\PYG{p}{,}\PYG{n}{f}\PYG{p}{,}\PYG{n}{temp}\PYG{p}{,}\PYG{n}{N}\PYG{p}{);}
+	\PYG{c+c1}{//Return 2norm}
+	\PYG{n}{res} \PYG{o}{=} \PYG{n}{norm2}\PYG{p}{(}\PYG{n}{temp}\PYG{p}{,} \PYG{n}{N}\PYG{p}{);}
+	\PYG{c+c1}{//Free memory}
+	\PYG{n}{free}\PYG{p}{(}\PYG{n}{temp}\PYG{p}{);}
+
+	\PYG{k}{return} \PYG{n}{res}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

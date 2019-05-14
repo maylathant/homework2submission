@@ -1,0 +1,16 @@
+Starting jacobi solver with 100 Dimensions and 1000000 max iterations
+Initial error is: 10.000000
+Run time: 2.347113
+ Number of Iterations : 33107
+Starting GS solver with 100 Dimensions and 1000000 max iterations
+Initial error is: 10.000000
+Run time: 1.119258
+ Number of Iterations : 16555
+Starting jacobi solver with 100 Dimensions and 1000000 max iterations
+Initial error is: 10.000000
+Run time: 0.653326
+ Number of Iterations : 33107
+Starting GS solver with 100 Dimensions and 1000000 max iterations
+Initial error is: 10.000000
+Run time: 0.319758
+ Number of Iterations : 16555

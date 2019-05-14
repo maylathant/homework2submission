@@ -1,0 +1,75 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cm}{/*Anthony Maylath C code to solve 1D Laplace*/}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}stdio.h\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}stdlib.h\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}math.h\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}string.h\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}hw1q3\PYGZus{}utils.h\PYGZdq{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}utils.h\PYGZdq{}}
+
+\PYG{c+c1}{//Function declarations}
+\PYG{k+kt}{void} \PYG{n+nf}{iniLaplace}\PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{f}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{**}\PYG{n}{A}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{u}\PYG{p}{,} \PYG{k+kt}{double} \PYG{n}{h}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{N}\PYG{p}{);}
+\PYG{k+kt}{void} \PYG{n+nf}{jacobi}\PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{f}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{**}\PYG{n}{A}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{u}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{N}\PYG{p}{);}
+\PYG{k+kt}{void} \PYG{n+nf}{AuMult}\PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{**}\PYG{n}{A}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{u}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{b}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{N}\PYG{p}{);}
+\PYG{k+kt}{void} \PYG{n+nf}{vecSub}\PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{u}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{f}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{b}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{N}\PYG{p}{);}
+\PYG{k+kt}{double} \PYG{n+nf}{norm2}\PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{b}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{N}\PYG{p}{);}
+\PYG{k+kt}{double} \PYG{n+nf}{error2}\PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{**}\PYG{n}{A}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{u}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{f}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{N}\PYG{p}{);}
+
+\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{argc}\PYG{p}{,} \PYG{k+kt}{char}\PYG{o}{*} \PYG{n}{argv}\PYG{p}{[])\PYGZob{}}
+	\PYG{c+cm}{/*Iterative solving for linear systems}
+\PYG{c+cm}{	argv[1]: represents dimension of matrix (int)}
+\PYG{c+cm}{	argv[2]: mac number of iterations (int)}
+\PYG{c+cm}{	argv[3]: represents type of solver. \PYGZdq{}jacobi\PYGZdq{} or \PYGZdq{}GS\PYGZdq{} (string)}
+\PYG{c+cm}{	default solver is Gauss\PYGZhy{}Seidel*/}
+	\PYG{k+kt}{int} \PYG{n}{N} \PYG{o}{=} \PYG{n}{atoi}\PYG{p}{(}\PYG{n}{argv}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]);}
+	\PYG{k+kt}{int} \PYG{n}{num\PYGZus{}iter} \PYG{o}{=} \PYG{n}{atoi}\PYG{p}{(}\PYG{n}{argv}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]);}
+
+	\PYG{c+c1}{//Allocate space for arrays}
+	\PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{f} \PYG{o}{=} \PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{*}\PYG{p}{)}\PYG{n}{malloc}\PYG{p}{(}\PYG{n}{N}\PYG{o}{*}\PYG{k}{sizeof}\PYG{p}{(}\PYG{k+kt}{double}\PYG{p}{));}
+	\PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{u} \PYG{o}{=} \PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{*}\PYG{p}{)}\PYG{n}{malloc}\PYG{p}{(}\PYG{n}{N}\PYG{o}{*}\PYG{k}{sizeof}\PYG{p}{(}\PYG{k+kt}{double}\PYG{p}{));}
+	\PYG{k+kt}{double} \PYG{o}{**}\PYG{n}{A} \PYG{o}{=} \PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{**}\PYG{p}{)}\PYG{n}{malloc}\PYG{p}{(}\PYG{n}{N}\PYG{o}{*}\PYG{k}{sizeof}\PYG{p}{(}\PYG{k+kt}{double}\PYG{p}{));}
+	\PYG{c+c1}{//Allocate second dimension}
+	\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{N}\PYG{p}{;} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)}
+		\PYG{n}{A}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{p}{(}\PYG{k+kt}{double} \PYG{o}{*}\PYG{p}{)}\PYG{n}{malloc}\PYG{p}{(}\PYG{n}{N}\PYG{o}{*}\PYG{k}{sizeof}\PYG{p}{(}\PYG{k+kt}{double}\PYG{p}{));}
+	
+	\PYG{c+c1}{//Declare solver to use for computation}
+	\PYG{k+kt}{void} \PYG{p}{(}\PYG{o}{*}\PYG{n}{solver}\PYG{p}{)(}\PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{f}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{**}\PYG{n}{A}\PYG{p}{,} \PYG{k+kt}{double} \PYG{o}{*}\PYG{n}{u}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{N}\PYG{p}{);}
+	\PYG{n}{solver} \PYG{o}{=} \PYG{o}{!}\PYG{n}{strcmp}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}GS\PYGZdq{}}\PYG{p}{,}\PYG{n}{argv}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{])} \PYG{o}{?} \PYG{n+nl}{solveGS} \PYG{p}{:} \PYG{n}{jacobi}\PYG{p}{;}
+
+	\PYG{n}{printf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Starting \PYGZpc{}s solver with \PYGZpc{}d Dimensions and \PYGZdq{}}
+		 \PYG{l+s}{\PYGZdq{}\PYGZpc{}d max iterations}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,}\PYG{n}{argv}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{],}\PYG{n}{N}\PYG{p}{,}\PYG{n}{num\PYGZus{}iter}\PYG{p}{);}
+
+	\PYG{k+kt}{double} \PYG{n}{err0}\PYG{p}{,} \PYG{n}{err}\PYG{o}{=}\PYG{l+m+mi}{10000}\PYG{p}{,} \PYG{n}{h} \PYG{o}{=} \PYG{l+m+mf}{1.0}\PYG{o}{/}\PYG{n}{N}\PYG{p}{,} \PYG{n}{tol} \PYG{o}{=} \PYG{l+m+mf}{1e6}\PYG{p}{;}
+
+	\PYG{c+c1}{//Initalize problem statement}
+	\PYG{n}{iniLaplace}\PYG{p}{(}\PYG{n}{f}\PYG{p}{,}\PYG{n}{A}\PYG{p}{,}\PYG{n}{u}\PYG{p}{,}\PYG{n}{h}\PYG{p}{,}\PYG{n}{N}\PYG{p}{);}
+	
+	\PYG{c+c1}{//Initial error}
+	\PYG{n}{err0} \PYG{o}{=} \PYG{n}{error2}\PYG{p}{(}\PYG{n}{A}\PYG{p}{,}\PYG{n}{u}\PYG{p}{,}\PYG{n}{f}\PYG{p}{,}\PYG{n}{N}\PYG{p}{);}
+	\PYG{n}{printf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Initial error is: \PYGZpc{}f}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,}\PYG{n}{err0}\PYG{p}{);}
+
+	\PYG{n}{Timer} \PYG{n}{t}\PYG{p}{;}
+    \PYG{n}{t}\PYG{p}{.}\PYG{n}{tic}\PYG{p}{();} \PYG{c+c1}{//Start timer}
+	\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+	\PYG{k}{while}\PYG{p}{((}\PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{num\PYGZus{}iter}\PYG{p}{)} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{p}{(}\PYG{n}{err0}\PYG{o}{/}\PYG{n}{err} \PYG{o}{\PYGZlt{}} \PYG{n}{tol}\PYG{p}{))\PYGZob{}}
+		\PYG{n}{solver}\PYG{p}{(}\PYG{n}{f}\PYG{p}{,}\PYG{n}{A}\PYG{p}{,}\PYG{n}{u}\PYG{p}{,}\PYG{n}{N}\PYG{p}{);}
+		\PYG{n}{err} \PYG{o}{=} \PYG{n}{error2}\PYG{p}{(}\PYG{n}{A}\PYG{p}{,}\PYG{n}{u}\PYG{p}{,}\PYG{n}{f}\PYG{p}{,}\PYG{n}{N}\PYG{p}{);}
+		\PYG{c+c1}{//Print error for every 100 iterations}
+		\PYG{k}{if}\PYG{p}{(}\PYG{n}{i}\PYG{o}{\PYGZpc{}}\PYG{l+m+mi}{100}\PYG{o}{==}\PYG{l+m+mi}{0}\PYG{p}{)}
+		 	\PYG{n}{printf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Error for iteration \PYGZpc{}d is \PYGZpc{}f}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{i}\PYG{p}{,} \PYG{n}{err}\PYG{p}{);}
+		\PYG{n}{i}\PYG{o}{++}\PYG{p}{;}
+	\PYG{p}{\PYGZcb{}}
+
+	\PYG{c+c1}{// for(int i = 0; i\PYGZlt{}N; i++)}
+	\PYG{c+c1}{//  	printf(\PYGZdq{}Entry \PYGZpc{}d is \PYGZpc{}f\PYGZbs{}n\PYGZdq{}, i, u[i]);}
+
+	\PYG{c+c1}{//Time results}
+	\PYG{n}{printf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Run time: \PYGZpc{}f}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{ Number of Iterations : \PYGZpc{}d}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{t}\PYG{p}{.}\PYG{n}{toc}\PYG{p}{(),}\PYG{n}{i}\PYG{p}{);}
+
+	\PYG{c+c1}{//Free malloced memory}
+	\PYG{n}{free}\PYG{p}{(}\PYG{n}{f}\PYG{p}{);} \PYG{n}{free}\PYG{p}{(}\PYG{n}{u}\PYG{p}{);}
+	\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{N}\PYG{p}{;} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)}
+		\PYG{n}{free}\PYG{p}{(}\PYG{n}{A}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]);}
+
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
