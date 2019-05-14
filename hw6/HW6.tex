@@ -52,7 +52,7 @@ My implementation can be found $jacobi\_mpi.cpp$. The implementation takes two c
 
 Figures \ref{fig1} and \ref{fig2} demonstrate the weak scalling of the implementation for 64 nodes with 4 tasks per node and 16 nodes with 16 tasks per node respectively. Each line represents a fixed number of Jacobi iterations. The base size of the problem is $N=100$ and is scalled up proportional to the number of processes so that each process gets $lN = 100$ locally. The secondary axis corresponds to 1,000 and 100 iterations. For 100 iterations, it seems like we lose some performance for larger problem sizes, while the performance time seems more consistant across problem sizes for more iterations.\\
 
-Figure \ref{fig2a} shows strong scaling log timings with $lN = 25,600$. The results were obtained with 8 nodes and 16 tasks per node on Prince. To get the expected time, I take the serial time and divide it by the number of processes. Each run performed 100 iterations. The strong scaling appears to be quite good with the actual timing falling well below expectation. Of course, this could be due to transiant artifacts that made the serial timing unusually long.
+Figure \ref{fig2a} shows strong scaling log timings with $lN = 25,600$. The results were obtained with 16 nodes and 16 tasks per node on Prince. To get the expected time, I take the serial time and divide it by the number of processes. Each run performed 100 iterations. The strong scaling appears to be quite good with the actual timing falling well below expectation. Of course, this could be due to transiant artifacts that made the serial timing unusually long.
 
 \lipsum
 
@@ -73,7 +73,7 @@ Figure \ref{fig2a} shows strong scaling log timings with $lN = 25,600$. The resu
      \begin{minipage}{0.45\textwidth}
         \centering
         \includegraphics[width=1.2\textwidth]{q1strongscaling.pdf} % second figure itself
-        \caption{Strong Scaling 8 Nodes, 16 Cores Per Node}
+        \caption{Strong Scaling 16 Nodes, 16 Cores Per Node}
         \label{fig2a}
     \end{minipage}
 \end{figure}
