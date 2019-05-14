@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  12 MAY 2019 18:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  13 MAY 2019 19:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -727,16 +727,32 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-[1
 
-{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+Underfull \hbox (badness 10000) in paragraph at lines 77--78
+
+ []
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 79--80
 
  []
 
+[1
+
+{/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[2 </Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/H
+W/HW6/q1weakscaling1.pdf> </Users/anthonymaylath/Documents/Schoolwork/NYU/High_
+Performance_Computing/HW/HW6/q1weakscaling2.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 114--115
+
+ []
+
 ! Undefined control sequence.
-l.83 \lipsum
-            
+l.118 \lipsum
+             
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -744,30 +760,30 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 </Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/HW/H
-W6/q2strongscaling.pdf, id=15, 462.72874pt x 296.10625pt>
+W6/q2strongscaling.pdf, id=69, 462.72874pt x 296.10625pt>
 File: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing
 /HW/HW6/q2strongscaling.pdf Graphic file (type pdf)
 <use /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/
 HW/HW6/q2strongscaling.pdf>
 Package pdftex.def Info: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Pe
-rformance_Computing/HW/HW6/q2strongscaling.pdf  used on input line 89.
+rformance_Computing/HW/HW6/q2strongscaling.pdf  used on input line 124.
 (pdftex.def)             Requested size: 230.46516pt x 147.47894pt.
 
-Overfull \hbox (38.41037pt too wide) in paragraph at lines 89--90
+Overfull \hbox (38.41037pt too wide) in paragraph at lines 124--125
  [][] 
  []
 
 </Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/HW/H
-W6/q2weakscaling.pdf, id=16, 362.35374pt x 218.8175pt>
+W6/q2weakscaling.pdf, id=70, 362.35374pt x 218.8175pt>
 File: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing
 /HW/HW6/q2weakscaling.pdf Graphic file (type pdf)
 <use /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/
 HW/HW6/q2weakscaling.pdf>
 Package pdftex.def Info: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Pe
-rformance_Computing/HW/HW6/q2weakscaling.pdf  used on input line 95.
+rformance_Computing/HW/HW6/q2weakscaling.pdf  used on input line 130.
 (pdftex.def)             Requested size: 230.46516pt x 139.1746pt.
 
-Overfull \hbox (38.41037pt too wide) in paragraph at lines 95--96
+Overfull \hbox (38.41037pt too wide) in paragraph at lines 130--131
  [][] 
  []
 
@@ -775,7 +791,7 @@ Overfull \hbox (38.41037pt too wide) in paragraph at lines 95--96
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 ! Undefined control sequence.
-l.101 \lipsum
+l.136 \lipsum
              
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -783,15 +799,18 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-[2 </Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/H
-W/HW6/q1weakscaling1.pdf> </Users/anthonymaylath/Documents/Schoolwork/NYU/High_
-Performance_Computing/HW/HW6/q1weakscaling2.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 106--107
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 141--142
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 143--144
 
  []
 
 ! Undefined control sequence.
-l.110 \lipsum
+l.147 \lipsum
              
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -800,30 +819,58 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 </Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/HW/H
-W6/q3strongscaling.pdf, id=72, 364.36125pt x 218.8175pt>
+W6/q3strongscalingprince.pdf, id=76, 389.455pt x 218.8175pt>
+File: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing
+/HW/HW6/q3strongscalingprince.pdf Graphic file (type pdf)
+<use /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/
+HW/HW6/q3strongscalingprince.pdf>
+Package pdftex.def Info: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Pe
+rformance_Computing/HW/HW6/q3strongscalingprince.pdf  used on input line 153.
+(pdftex.def)             Requested size: 230.46516pt x 129.48517pt.
+
+Overfull \hbox (38.41037pt too wide) in paragraph at lines 153--154
+ [][] 
+ []
+
+</Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/HW/H
+W6/q3weakscalingprince.pdf, id=77, 363.3575pt x 218.8175pt>
+File: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing
+/HW/HW6/q3weakscalingprince.pdf Graphic file (type pdf)
+<use /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/
+HW/HW6/q3weakscalingprince.pdf>
+Package pdftex.def Info: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Pe
+rformance_Computing/HW/HW6/q3weakscalingprince.pdf  used on input line 159.
+(pdftex.def)             Requested size: 230.46516pt x 138.79063pt.
+
+Overfull \hbox (38.41037pt too wide) in paragraph at lines 159--160
+ [][] 
+ []
+
+</Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/HW/H
+W6/q3strongscaling.pdf, id=78, 364.36125pt x 218.8175pt>
 File: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing
 /HW/HW6/q3strongscaling.pdf Graphic file (type pdf)
 <use /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/
 HW/HW6/q3strongscaling.pdf>
 Package pdftex.def Info: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Pe
-rformance_Computing/HW/HW6/q3strongscaling.pdf  used on input line 116.
+rformance_Computing/HW/HW6/q3strongscaling.pdf  used on input line 167.
 (pdftex.def)             Requested size: 230.46516pt x 138.40332pt.
 
-Overfull \hbox (38.41037pt too wide) in paragraph at lines 116--117
+Overfull \hbox (38.41037pt too wide) in paragraph at lines 167--168
  [][] 
  []
 
 </Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/HW/H
-W6/q3weakscaling.pdf, id=73, 362.35374pt x 218.8175pt>
+W6/q3weakscaling.pdf, id=79, 362.35374pt x 218.8175pt>
 File: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing
 /HW/HW6/q3weakscaling.pdf Graphic file (type pdf)
 <use /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/
 HW/HW6/q3weakscaling.pdf>
 Package pdftex.def Info: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Pe
-rformance_Computing/HW/HW6/q3weakscaling.pdf  used on input line 122.
+rformance_Computing/HW/HW6/q3weakscaling.pdf  used on input line 173.
 (pdftex.def)             Requested size: 230.46516pt x 139.1746pt.
 
-Overfull \hbox (38.41037pt too wide) in paragraph at lines 122--123
+Overfull \hbox (38.41037pt too wide) in paragraph at lines 173--174
  [][] 
  []
 
@@ -831,7 +878,7 @@ Overfull \hbox (38.41037pt too wide) in paragraph at lines 122--123
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 ! Undefined control sequence.
-l.128 \lipsum
+l.179 \lipsum
              
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -839,35 +886,38 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-[3 </Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/H
+[4 </Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/H
 W/HW6/q2strongscaling.pdf> </Users/anthonymaylath/Documents/Schoolwork/NYU/High
-_Performance_Computing/HW/HW6/q2weakscaling.pdf>] [4 </Users/anthonymaylath/Doc
-uments/Schoolwork/NYU/High_Performance_Computing/HW/HW6/q3strongscaling.pdf> </
-Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/HW/HW6
-/q3weakscaling.pdf>] (./HW6.aux) ) 
+_Performance_Computing/HW/HW6/q2weakscaling.pdf>] [5 </Users/anthonymaylath/Doc
+uments/Schoolwork/NYU/High_Performance_Computing/HW/HW6/q3strongscalingprince.p
+df> </Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/
+HW/HW6/q3weakscalingprince.pdf> </Users/anthonymaylath/Documents/Schoolwork/NYU
+/High_Performance_Computing/HW/HW6/q3strongscaling.pdf> </Users/anthonymaylath/
+Documents/Schoolwork/NYU/High_Performance_Computing/HW/HW6/q3weakscaling.pdf>] 
+(./HW6.aux) ) 
 Here is how much of TeX's memory you used:
- 9234 strings out of 492649
- 137347 string characters out of 6129622
- 226701 words of memory out of 5000000
- 12923 multiletter control sequences out of 15000+600000
- 21904 words of font info for 83 fonts, out of 8000000 for 9000
+ 9252 strings out of 492649
+ 138385 string characters out of 6129622
+ 231701 words of memory out of 5000000
+ 12939 multiletter control sequences out of 15000+600000
+ 23255 words of font info for 87 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  42i,7n,77p,1150b,411s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2018/texmf-dist/fonts/enc
-/dvips/mnsymbol/MnSymbolC.enc}{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvi
-ps/mnsymbol/MnSymbolE.enc}{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/m
-nsymbol/MnSymbolD.enc}</usr/local/texlive/2018/texmf-dist/fonts/type1/public/mn
-symbol/MnSymbol10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmbx12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmmi10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr10.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmr12.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmr17.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr7.pfb>
-Output written on HW6.pdf (4 pages, 260456 bytes).
+{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/mnsymbol/MnSym
+bolC.enc}{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/mnsymbol/MnSymbolE
+.enc}{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/mnsymbol/MnSymbolD.enc
+}</usr/local/texlive/2018/texmf-dist/fonts/type1/public/mnsymbol/MnSymbol10.pfb
+></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
+sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr
+/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/l
+ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/loca
+l/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on HW6.pdf (5 pages, 328363 bytes).
 PDF statistics:
- 277 PDF objects out of 1000 (max. 8388607)
- 188 compressed objects within 2 object streams
+ 353 PDF objects out of 1000 (max. 8388607)
+ 239 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

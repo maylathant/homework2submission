@@ -48,7 +48,7 @@ We have completed an MPI implementation of the Kmeans and EM algorithms. At this
 
 \section{Question 1}
 
-My implementation can be found $jacobi\_mpi.cpp$. The implementation takes two command line arguments: the first sets the dimension of the problem, $N$, and the second specifies the max number of Jacobi iterations. My implementation uses row major ordering for the solution $lu$. I send a different communication depending on where the process falls on the grid. If the process computes the solution on the top row, then don't comunicate ghost values for the top. I filter out top row comunication by checking if $mpirank >= \sqrt{p}$ where p is the number of processes. I apply similar checks on all four edges of ghost values.\\
+My implementation can be found $jacobi\_mpi.cpp$. The implementation takes two command line arguments: the first sets the dimension of the problem, $N$, and the second specifies the max number of Jacobi iterations. My implementation uses row major ordering for the solution $lu$. I send a different communication depending on where the process falls on the grid. For instance, if the process computes the solution on the top row, then don't comunicate ghost values for the top. I filter out top row comunication by checking if $mpirank >= \sqrt{p}$ where p is the number of processes. I apply similar checks on all four edges of ghost values.\\
 
 Figures \ref{fig1} and \ref{fig2} demonstrate the weak scalling of the implementation for 64 nodes with 4 cores per node and 16 nodes with 16 cores per node respectively. Each line represents a fixed number of Jacobi iterations. The base size of the problem is $N=100$ and is scalled up proportional to the number of processes so that each process gets $lN = 100$ locally. The secondary axis corresponds to 1,000 and 100 iterations. For 100 iterations, it seems like we lose some performance for larger problem sizes, while the performance time seems more consistant across problem sizes for more iterations. 
 
@@ -71,6 +71,41 @@ Figures \ref{fig1} and \ref{fig2} demonstrate the weak scalling of the implement
 \end{figure}
 
 \lipsum
+
+\subsection{Voluntary Bonus Question: Non-Blocking Jacobi}
+
+File jacobi\_noblock.cpp contains a non-blocking version of a distributed Jacobi solver. I define three new functions. localJacobi()s computes the next Jacobi iteration, just like the blocking version. innerJacobi() only computes the Jacobi step for points not adjacent to a ghost point. outerJacobi only computes the Jacobi step for points adjacent to ghost points.\\
+
+Each time localJacobi() is called, I send the top and bottom ghost values and compute the innerJacobi(). Then, I send the left and right ghost points and wait for all the recieves to complete before computing outerJacobi(). A new array, $lwait$, holds the results of inner and outerJacobi() so all three steps are persisted.\\
+
+I ran the blocking and non-blocking over 16 nodes with 16 tasks per node for several different max iterations and dimension size. The results can be seen in \ref{tab1}. The $\textit{Improvement}$ column shows the timing of the blocking implementation minus the timing of the blocking implementation. Overall, the non-blocking version seems slightly slower than the blocking implentation most of the time. There is one instance where blocking does significantly better with 100 iterations, 256 processes and 256 points. Also notice the improvement tends to be larger for fewer iterations.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c|c|c|c| }
+\hline
+Processes&	N&	Iterations&	Time Blocking&	Improvement\\
+\hline
+1&	100&	100&	0.015849&	-0.003424\\
+4&	400&	100&	0.022168&	0.00311\\
+16&	1600&	100&	0.016487&	-0.014867\\
+64&	6400&	100&	0.082373&	-0.042053\\
+256&	25600&	100&	0.373123&	0.257462\\
+1&	100&	1000&	0.15263&	-0.018995\\
+4&	400&	1000&	0.186669&	-0.005034\\
+16&	1600&	1000&	0.183917&	0.014694\\
+64&	6400&	1000&	0.209188&	-0.206038\\
+256&	25600&	1000&	0.271212&	-0.295981\\
+1&	100&	10000&	1.17058&	-0.024951\\
+4&	400&	10000&	1.348892&	-0.044315\\
+16&	1600&	10000&	1.316946&	-0.040889\\
+64&	6400&	10000&	1.733511&	0.054059\\
+256&	25600&	10000&	1.877382&	-0.028926\\
+\hline
+\end{tabular}
+ \caption{Non-Blocking Improvement on Prince}
+ \label{tab1}
+ \end{table}
 
 \newpage
 
@@ -105,7 +140,9 @@ I ran my timings on Prince with 16 nodes, 16 tasks per node and 16GB of memory. 
 
 I opted to parallize the one dimensional multigrid method in openmp. The my implementation is an alteration of the code available on git for lecture13. The implementation now requires 4 command line parameters with the fourth parameter being the number of omp threads. I added parallel for statements to the set\_zero, compute\_residual, and jacobi functions. In addition, I saw speed up by adding parallel for statements to the coarsen and refine\_and\_add functions despite an exponentially decreasing amount of work with each v-step. These functions also have parallel for pragmas in my implementation. Instead of performing a memcpy with each jacobi step, I simply switch the $u$ and $unew$ pointers. This speeds things up, but requires the $ssteps$ parameter to be even. Finally, I added a reduction to the function $compute\_norm$.\\
 
-I attempted to run my implementation on Prince, but I did not see any speed up. For omp\_threads = 1,...,10 the run time was always around 10 seconds for $N = $ 100 million. However, I was able to get a clear speedup on CIMS crackle2. Figures \ref{fig5} and \ref{fig6} show the strong and weak scaling respectively for omp threads = $1,2,...10$. For strong scaling, I always use 700 million points. For weak scaling I start with 100 million points and add another 100 million points for each additional omp thread. For strong scaling, the optimal number of omp threads for 700 million points seems to be between 4 and 7. For weak scaling, a line fit estimates that each omp thread adds about 6 seconds of run time. The weak scaling isn't great but its much better than running serially as the serial code takes about 9 seconds for 100 million points. If we scale this up linearly, that implies the serial code should take around 90 seconds for 1 billion points. However, we see better performance on the parallel implemenation with around 63 seconds on 1 billion points and 10 threads.
+Figures \ref{fig5} and \ref{fig6} show the strong and weak scaling for omp threads = $1,...,20$ and $1,...,11$ respectively on Prince with 1 node, 20 cores, and 60BG of memory. For strong scaling, I always use 700 million points. For weak scaling I start with 100 million points and add another 100 million points for each additional omp thread. For strong scaling, the optimal number of omp threads for 700 million points seems to be between 10 and 15. For weak scaling, a line fit estimates that each omp thread adds about 5 seconds of run time. The weak scaling isn't great but its much better than running serially as the base case serial code takes about 9 seconds for 100 million points. If we scale this up linearly, that implies the serial code should take around 90 seconds for 1 billion points. However, we see better performance on the parallel implemenation with around 36 seconds on 1 billion points and 10 threads.\\
+
+For a comparison, I also ran scalings on crakle2 which can be seen in figures \ref{fig7} and \ref{fig8} respectively. For strong scaling, the optimal number of threads comes in at 4 with a timing of 38 seconds. On Prince, the best time was slightly lower at 33 seconds with 11 threads. The weak scaling is also a bit worse than Prince with an estimated slope of approximately 6. Prince only performs slightly better with much more hardware due to the constraint of shared memory.
 
 \lipsum
 
@@ -113,15 +150,29 @@ I attempted to run my implementation on Prince, but I did not see any speed up. 
     \centering
     \begin{minipage}{0.45\textwidth}
         \centering
+        \includegraphics[width=1.2\textwidth]{q3strongscalingprince.pdf} % first figure itself
+        \caption{Prince - Strong Scaling Timings}
+        \label{fig5}
+    \end{minipage}\hfill
+         \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=1.2\textwidth]{q3weakscalingprince.pdf} % second figure itself
+        \caption{Prince - Weak Scaling Timings}
+        \label{fig6}
+    \end{minipage}
+
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \centering
         \includegraphics[width=1.2\textwidth]{q3strongscaling.pdf} % first figure itself
         \caption{crackle2 - Strong Scaling Timings}
-        \label{fig5}
+        \label{fig7}
     \end{minipage}\hfill
          \begin{minipage}{0.45\textwidth}
         \centering
         \includegraphics[width=1.2\textwidth]{q3weakscaling.pdf} % second figure itself
         \caption{crackle2 - Weak Scaling Timings}
-        \label{fig6}
+        \label{fig8}
     \end{minipage}
 \end{figure}
 

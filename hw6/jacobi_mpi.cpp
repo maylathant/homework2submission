@@ -157,11 +157,6 @@ int main(int argc, char * argv[]){
         lunew[lN+1 + i*(lN+2)] = rbuff[i];
       }
 
-      //Initialize buffer
-      for(long i = 0; i < lN+2; i++){
-        rbuff[i] = lunew[lN + i*(lN+2)];
-      }
-
       MPI_Send(rbuff, lN+2, MPI_DOUBLE, mpirank+1, 126, MPI_COMM_WORLD);
 
     }
