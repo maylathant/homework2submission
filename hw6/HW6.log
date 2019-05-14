@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  13 MAY 2019 22:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  13 MAY 2019 22:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -769,8 +769,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 122--123
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 124--125
+
+ []
+
 ! Undefined control sequence.
-l.126 \lipsum
+l.128 \lipsum
              
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -785,10 +790,10 @@ File: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing
 <use /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/
 HW/HW6/q2strongscaling.pdf>
 Package pdftex.def Info: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Pe
-rformance_Computing/HW/HW6/q2strongscaling.pdf  used on input line 132.
+rformance_Computing/HW/HW6/q2strongscaling.pdf  used on input line 134.
 (pdftex.def)             Requested size: 230.46516pt x 147.47894pt.
 
-Overfull \hbox (38.41037pt too wide) in paragraph at lines 132--133
+Overfull \hbox (38.41037pt too wide) in paragraph at lines 134--135
  [][] 
  []
 
@@ -799,10 +804,10 @@ File: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing
 <use /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/
 HW/HW6/q2weakscaling.pdf>
 Package pdftex.def Info: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Pe
-rformance_Computing/HW/HW6/q2weakscaling.pdf  used on input line 138.
+rformance_Computing/HW/HW6/q2weakscaling.pdf  used on input line 140.
 (pdftex.def)             Requested size: 230.46516pt x 139.1746pt.
 
-Overfull \hbox (38.41037pt too wide) in paragraph at lines 138--139
+Overfull \hbox (38.41037pt too wide) in paragraph at lines 140--141
  [][] 
  []
 
@@ -810,7 +815,7 @@ Overfull \hbox (38.41037pt too wide) in paragraph at lines 138--139
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 ! Undefined control sequence.
-l.144 \lipsum
+l.146 \lipsum
              
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -819,17 +824,17 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 149--150
-
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 151--152
 
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
+
+ []
+
 ! Undefined control sequence.
-l.155 \lipsum
+l.157 \lipsum
              
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -844,10 +849,10 @@ File: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing
 <use /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/
 HW/HW6/q3strongscalingprince.pdf>
 Package pdftex.def Info: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Pe
-rformance_Computing/HW/HW6/q3strongscalingprince.pdf  used on input line 161.
+rformance_Computing/HW/HW6/q3strongscalingprince.pdf  used on input line 163.
 (pdftex.def)             Requested size: 230.46516pt x 129.48517pt.
 
-Overfull \hbox (38.41037pt too wide) in paragraph at lines 161--162
+Overfull \hbox (38.41037pt too wide) in paragraph at lines 163--164
  [][] 
  []
 
@@ -858,10 +863,10 @@ File: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing
 <use /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/
 HW/HW6/q3weakscalingprince.pdf>
 Package pdftex.def Info: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Pe
-rformance_Computing/HW/HW6/q3weakscalingprince.pdf  used on input line 167.
+rformance_Computing/HW/HW6/q3weakscalingprince.pdf  used on input line 169.
 (pdftex.def)             Requested size: 230.46516pt x 138.79063pt.
 
-Overfull \hbox (38.41037pt too wide) in paragraph at lines 167--168
+Overfull \hbox (38.41037pt too wide) in paragraph at lines 169--170
  [][] 
  []
 
@@ -872,10 +877,10 @@ File: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing
 <use /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/
 HW/HW6/q3strongscaling.pdf>
 Package pdftex.def Info: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Pe
-rformance_Computing/HW/HW6/q3strongscaling.pdf  used on input line 175.
+rformance_Computing/HW/HW6/q3strongscaling.pdf  used on input line 177.
 (pdftex.def)             Requested size: 230.46516pt x 138.40332pt.
 
-Overfull \hbox (38.41037pt too wide) in paragraph at lines 175--176
+Overfull \hbox (38.41037pt too wide) in paragraph at lines 177--178
  [][] 
  []
 
@@ -886,10 +891,10 @@ File: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing
 <use /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Performance_Computing/
 HW/HW6/q3weakscaling.pdf>
 Package pdftex.def Info: /Users/anthonymaylath/Documents/Schoolwork/NYU/High_Pe
-rformance_Computing/HW/HW6/q3weakscaling.pdf  used on input line 181.
+rformance_Computing/HW/HW6/q3weakscaling.pdf  used on input line 183.
 (pdftex.def)             Requested size: 230.46516pt x 139.1746pt.
 
-Overfull \hbox (38.41037pt too wide) in paragraph at lines 181--182
+Overfull \hbox (38.41037pt too wide) in paragraph at lines 183--184
  [][] 
  []
 
@@ -897,7 +902,7 @@ Overfull \hbox (38.41037pt too wide) in paragraph at lines 181--182
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 ! Undefined control sequence.
-l.187 \lipsum
+l.189 \lipsum
              
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -933,7 +938,7 @@ sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr
 /local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/l
 ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/loca
 l/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on HW6.pdf (5 pages, 359638 bytes).
+Output written on HW6.pdf (5 pages, 359905 bytes).
 PDF statistics:
  401 PDF objects out of 1000 (max. 8388607)
  270 compressed objects within 3 object streams
