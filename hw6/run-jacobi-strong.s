@@ -19,6 +19,7 @@ module load openmpi/intel/3.1.3
 make
 
 mpirun -np 1 ./jacobi_mpi 25600 100
+mpirun -np 2 ./jacobi_mpi 25600 100
 mpirun -np 4 ./jacobi_mpi 25600 100
 mpirun -np 8 ./jacobi_mpi 25600 100
 mpirun -np 16 ./jacobi_mpi 25600 100
